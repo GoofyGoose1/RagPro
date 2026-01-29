@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>RagPro - מערכת AI מתקדמת</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;700;900&family=Assistant:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  
+  <header class="hero">
+    <div class="hero-grain"></div>
+    <div class="hero-content">
+      <div class="logo-mark">
+        <div class="logo-dot"></div>
+        <div class="logo-pulse"></div>
+      </div>
+      <h1 class="hero-title">
+        <span class="title-rag">Pro</span><span class="title-pro">Rag</span>
+      </h1>
+      <p class="hero-subtitle">מערכת AI מתקדמת לעיבוד וניתוח נתונים בזמן אמת</p>
+    </div>
+    <div class="hero-gradient"></div>
+  </header>
+
+  <main class="container">
+    
+    <section class="section-wrapper">
+      <div class="section-header">
+        <h2 class="section-title">אימון המערכת</h2>
+        <p class="section-desc">העלה קבצים ואמן את הרשת העצבית לפי צרכיך</p>
+      </div>
+
+      <div class="training-grid">
+        
+        <!-- CSV Training Card -->
+        <div class="training-card csv-card">
+          <div class="card-header">
+            <div class="card-icon csv-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+                <line x1="8" y1="13" x2="16" y2="13"/>
+                <line x1="8" y1="17" x2="16" y2="17"/>
+              </svg>
+            </div>
+            <div class="card-title-group">
+              <h3 class="card-title">אימון CSV</h3>
+              <span class="card-badge">Supervised Learning</span>
+            </div>
+          </div>
+          
+          <p class="card-hint">
+            מיועד לחיזוי ולמידה מפוקחת. העלה קובץ CSV עם עמודת יעד לאימון הרשת.
+          </p>
+
+          <form id="csvForm" class="training-form">
+            <div class="file-input-wrapper">
+              <input type="file" name="file" id="csvFile" accept=".csv" required />
+              <label for="csvFile" class="file-label">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                  <polyline points="17 8 12 3 7 8"/>
+                  <line x1="12" y1="3" x2="12" y2="15"/>
+                </svg>
+                <span class="file-text">בחר קובץ CSV</span>
+              </label>
+            </div>
+            
+            <div class="input-group">
+              <label class="input-label">עמודת יעד (Label Key)</label>
+              <input type="text" name="labelKey" class="text-input" placeholder="לדוגמה: language_rank" required />
+            </div>
+            
+            <button type="submit" class="btn btn-primary">
+              <span>אמן רשת עצבית</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="9 18 15 12 9 6"/>
+              </svg>
+            </button>
+          </form>
+
+          <div class="output-wrapper">
+            <pre id="csvOut" class="output-pre"></pre>
+          </div>
+        </div>
+
+        <!-- LSTM Training Card -->
+        <div class="training-card lstm-card">
+          <div class="card-header">
+            <div class="card-icon lstm-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
+                <polyline points="14 2 14 8 20 8"/>
+                <path d="M12 11v6"/>
+                <path d="M9 14h6"/>
+              </svg>
+            </div>
+            <div class="card-title-group">
+              <h3 class="card-title">אימון LSTM</h3>
+              <span class="card-badge">Knowledge Base</span>
+            </div>
+          </div>
+          
+          <p class="card-hint">
+            מיועד לידע חופשי ומסמכים טקסטואליים. הצ׳אט יענה על שאלות מתוך הטקסט שהועלה.
+          </p>
+
+          <form id="txtForm" class="training-form">
+            <div class="file-input-wrapper">
+              <input type="file" name="file" id="txtFile" accept=".txt" required />
+              <label for="txtFile" class="file-label">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                  <polyline points="17 8 12 3 7 8"/>
+                  <line x1="12" y1="3" x2="12" y2="15"/>
+                </svg>
+                <span class="file-text">בחר קובץ TXT</span>
+              </label>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">
+              <span>אמן LSTM</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="9 18 15 12 9 6"/>
+              </svg>
+            </button>
+          </form>
+
+          <div class="output-wrapper">
+            <pre id="txtOut" class="output-pre"></pre>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Chat Section -->
+    <section class="section-wrapper chat-section">
+      <div class="section-header">
+        <h2 class="section-title">צ׳אט אינטליגנטי</h2>
+        <p class="section-desc">שאל שאלות ותקבל תשובות מבוססות על הנתונים שאומנו</p>
+      </div>
+
+      <div class="chat-container">
+        <div class="chat-status">
+          <div id="kbBadge" class="status-badge">
+            <div class="status-dot"></div>
+            <span>טוען סטטוס קבצים...</span>
+          </div>
+        </div>
+
+        <div id="chatBox" class="chat-messages">
+          <div class="chat-welcome">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+            </svg>
+            <p>התחל שיחה על ידי שליחת שאלה</p>
+          </div>
+        </div>
+
+        <div class="chat-input-container">
+          <input 
+            id="chatInput" 
+            type="text" 
+            class="chat-input" 
+            placeholder="שאל כל דבר מהקבצים המצורפים..." 
+          />
+          <button id="chatSend" class="btn btn-send">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="22" y1="2" x2="11" y2="13"/>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+            </svg>
+          </button>
+          <button id="chatClear" class="btn btn-clear">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="3 6 5 6 21 6"/>
+              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+            </svg>
+          </button>
+        </div>
+
+        <pre id="chatDebug" class="chat-debug"></pre>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <p>RagPro © 2026 | Powered by Brain.js | Daniel e.</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
