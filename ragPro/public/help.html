@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>RagPro - הנחיות</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;700;900&family=Assistant:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    body { background: #f6f7fb; }
+    .help-shell { max-width: 1050px; margin: 0 auto; padding: 18px; }
+    .help-nav {
+      display:flex; gap:10px; justify-content:space-between; align-items:center;
+      margin: 14px 0 18px;
+      flex-wrap: wrap;
+    }
+    .help-nav a {
+      display:inline-flex; align-items:center; gap:8px;
+      text-decoration:none;
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(0,0,0,.08);
+      background: white;
+      color: #111;
+      font-weight: 700;
+    }
+    .help-nav a:hover { filter: brightness(0.98); }
+
+    .help-grid { display:grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    @media (max-width: 900px){ .help-grid { grid-template-columns: 1fr; } }
+
+    .help-card {
+      background: white;
+      border: 1px solid rgba(0,0,0,.08);
+      border-radius: 16px;
+      padding: 16px 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.05);
+    }
+    .help-card h2 { margin: 0 0 10px; font-size: 20px; color:#111; }
+    .help-card p, .help-card li { color:#222; line-height: 1.6; }
+    .help-card ul { margin: 8px 0 0; padding-right: 18px; }
+    .help-card code {
+      background: #f2f3f7;
+      padding: 2px 7px;
+      border-radius: 8px;
+      border: 1px solid rgba(0,0,0,.06);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 0.95em;
+    }
+    .tag {
+      display:inline-block;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: #f2f3f7;
+      border: 1px solid rgba(0,0,0,.06);
+      font-size: 12px;
+      margin-right: 6px;
+    }
+    .mini {
+      opacity: .8;
+      font-size: 13px;
+      margin-top: 10px;
+    }
+    .hero .hero-title, .hero .hero-subtitle { color: #fff; }
+  </style>
+</head>
+
+<body>
+  <header class="hero" style="min-height: 42vh;">
+    <div class="hero-grain"></div>
+    <div class="hero-content">
+      <h1 class="hero-title">הנחיות שימוש</h1>
+      <p class="hero-subtitle">איך להעלות קבצים, לבחור labelKey, ולשאול שאלות נכון</p>
+    </div>
+    <div class="hero-gradient"></div>
+  </header>
+
+  <main class="help-shell">
+    <nav class="help-nav">
+      <a href="/">חזרה לדף הראשי</a>
+      <a href="/#train">לאימון</a>
+      <a href="/#chat">לצ׳אט</a>
+    </nav>
+
+    <div class="help-grid">
+      <section class="help-card">
+        <h2>TXT (Knowledge Base) <span class="tag">RAG</span></h2>
+        <ul>
+          <li>העלה TXT כדי שהצ׳אט יחפש קטעים תואמים ויענה מתוכם.</li>
+          <li>דוגמאות שאלות: “סכם את המסמך”, “מה כתוב על X”, “תביא קטע על Y”.</li>
+        </ul>
+        <p class="mini">
+          טיפ: אם אתה רוצה תשובה קצרה — שאל שאלה ממוקדת (“מה כתוב על … בפסקה …?”).
+        </p>
+      </section>
+
+      <section class="help-card">
+        <h2>CSV (חיפוש + כללים) <span class="tag">Search</span></h2>
+        <ul>
+          <li><b>חיפוש שורות</b>: “מצא שורות על Python”, “תציג שורות שמכילות React”.</li>
+          <li><b>שאלות כללים</b>: “top 5”, “most stars”, “השווה בין X ל־Y”, “הכי פופולרי”.</li>
+        </ul>
+        <p class="mini">
+          אם התשובה ארוכה מדי — כתוב: <code>הצג מקורות</code> רק כשאתה רוצה את כל הפרטים.
+        </p>
+      </section>
+
+      <section class="help-card">
+        <h2>מה זה labelKey ולמה זה חשוב? <span class="tag">Training</span></h2>
+        <ul>
+          <li><b>labelKey</b> = שם עמודת היעד (התווית) שהמודל ילמד לנבא באימון CSV.</li>
+          <li>דוגמאות נפוצות: <code>label</code>, <code>category</code>, <code>type</code>, <code>class</code></li>
+          <li>בדף הראשי: העלה CSV → לחץ <b>בדוק CSV (headers)</b> → בחר מהרשימה → ואז <b>אמן רשת עצבית</b>.</li>
+        </ul>
+      </section>
+
+      <section class="help-card">
+        <h2>תקלות נפוצות <span class="tag">Troubleshoot</span></h2>
+        <ul>
+          <li>אין תוצאות בצ׳אט: בדוק שיש קובץ פעיל (TXT/CSV). לחץ “רענן סטטוס”.</li>
+          <li>אימון CSV נכשל: כנראה ה־<code>labelKey</code> לא קיים ב־headers.</li>
+          <li>תשובות חוזרות/ארוכות: ברירת מחדל קצרה. ליותר פרטים כתוב <code>הצג מקורות</code>.</li>
+        </ul>
+        <p class="mini">
+          אם עדיין יש בעיה: נסה שאלה יותר ספציפית, או העלה קובץ עם נתונים “נקיים” יותר.
+        </p>
+      </section>
+    </div>
+  </main>
+</body>
+</html>

@@ -4,15 +4,30 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>RagPro - מערכת AI מתקדמת</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;700;900&family=Assistant:wght@300;400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  
+
   <header class="hero">
     <div class="hero-grain"></div>
+
+    <div style="position:absolute; top:16px; left:16px; right:16px; display:flex; justify-content:space-between; gap:10px; z-index:3;">
+      <div style="display:flex; gap:10px; align-items:center;">
+        <a href="#train" style="color:white; text-decoration:none; opacity:.9;">אימון</a>
+        <a href="#chat" style="color:white; text-decoration:none; opacity:.9;">צ׳אט</a>
+        <a href="/help.html" style="color:white; text-decoration:none; opacity:.9;">הנחיות</a>
+      </div>
+      <div style="display:flex; gap:10px; align-items:center;">
+        <button id="refreshStateTop" class="btn btn-clear" style="background:rgba(255,255,255,.12); color:white;">
+          רענן סטטוס
+        </button>
+      </div>
+    </div>
+
     <div class="hero-content">
       <div class="logo-mark">
         <div class="logo-dot"></div>
@@ -23,19 +38,21 @@
       </h1>
       <p class="hero-subtitle">מערכת AI מתקדמת לעיבוד וניתוח נתונים בזמן אמת</p>
     </div>
+
     <div class="hero-gradient"></div>
   </header>
 
   <main class="container">
-    
-    <section class="section-wrapper">
+
+    <!-- TRAIN SECTION -->
+    <section id="train" class="section-wrapper">
       <div class="section-header">
         <h2 class="section-title">אימון המערכת</h2>
-        <p class="section-desc">העלה קבצים ואמן את הרשת העצבית לפי צרכיך</p>
+        <p class="section-desc">העלה קבצים ואמן את המערכת לפי צרכיך</p>
       </div>
 
       <div class="training-grid">
-        
+
         <!-- CSV Training Card -->
         <div class="training-card csv-card">
           <div class="card-header">
@@ -52,9 +69,9 @@
               <span class="card-badge">Supervised Learning</span>
             </div>
           </div>
-          
+
           <p class="card-hint">
-            מיועד לחיזוי ולמידה מפוקחת. העלה קובץ CSV עם עמודת יעד לאימון הרשת.
+            העלה CSV לחץ “בדוק CSV” כדי לראות עמודות בחר <b>Label Key</b> מתוך הרשימה ואז “אמן רשת עצבית”.
           </p>
 
           <form id="csvForm" class="training-form">
@@ -66,16 +83,29 @@
                   <polyline points="17 8 12 3 7 8"/>
                   <line x1="12" y1="3" x2="12" y2="15"/>
                 </svg>
-                <span class="file-text">בחר קובץ CSV</span>
+                <span class="file-text" id="csvFileText">בחר קובץ CSV</span>
               </label>
             </div>
-            
+
             <div class="input-group">
               <label class="input-label">עמודת יעד (Label Key)</label>
-              <input type="text" name="labelKey" class="text-input" placeholder="לדוגמה: language_rank" required />
+
+              <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+                <button type="button" id="inspectCsvBtn" class="btn btn-primary">
+                  בדוק CSV (headers)
+                </button>
+
+                <select id="labelKeySelect" name="labelKey" class="text-input" required disabled>
+                  <option value="">בחר עמודת יעד...</option>
+                </select>
+              </div>
+
+              <div id="csvInspectPreview" style="margin-top:10px; display:none;">
+                <pre id="csvInspectOut" class="output-pre"></pre>
+              </div>
             </div>
-            
-            <button type="submit" class="btn btn-primary">
+
+            <button type="submit" class="btn btn-primary" id="trainCsvBtn" disabled>
               <span>אמן רשת עצבית</span>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <polyline points="9 18 15 12 9 6"/>
@@ -88,7 +118,7 @@
           </div>
         </div>
 
-        <!-- LSTM Training Card -->
+        <!-- TXT Training Card -->
         <div class="training-card lstm-card">
           <div class="card-header">
             <div class="card-icon lstm-icon">
@@ -100,13 +130,13 @@
               </svg>
             </div>
             <div class="card-title-group">
-              <h3 class="card-title">אימון LSTM</h3>
-              <span class="card-badge">Knowledge Base</span>
+              <h3 class="card-title">העלאת TXT (Knowledge Base)</h3>
+              <span class="card-badge">TXT KB</span>
             </div>
           </div>
-          
+
           <p class="card-hint">
-            מיועד לידע חופשי ומסמכים טקסטואליים. הצ׳אט יענה על שאלות מתוך הטקסט שהועלה.
+            העלה TXT כדי שהצ׳אט יענה מתוך הטקסט (RAG).
           </p>
 
           <form id="txtForm" class="training-form">
@@ -118,16 +148,22 @@
                   <polyline points="17 8 12 3 7 8"/>
                   <line x1="12" y1="3" x2="12" y2="15"/>
                 </svg>
-                <span class="file-text">בחר קובץ TXT</span>
+                <span class="file-text" id="txtFileText">בחר קובץ TXT</span>
               </label>
             </div>
-            
-            <button type="submit" class="btn btn-primary">
-              <span>אמן LSTM</span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="9 18 15 12 9 6"/>
-              </svg>
-            </button>
+
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+              <button type="button" id="uploadTxtKbBtn" class="btn btn-primary">
+                העלה TXT כ-KB
+              </button>
+
+              <button type="submit" class="btn btn-primary">
+                <span>אמן LSTM (דמו)</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="9 18 15 12 9 6"/>
+                </svg>
+              </button>
+            </div>
           </form>
 
           <div class="output-wrapper">
@@ -138,11 +174,11 @@
       </div>
     </section>
 
-    <!-- Chat Section -->
-    <section class="section-wrapper chat-section">
+    <!-- CHAT SECTION -->
+    <section id="chat" class="section-wrapper chat-section">
       <div class="section-header">
         <h2 class="section-title">צ׳אט אינטליגנטי</h2>
-        <p class="section-desc">שאל שאלות ותקבל תשובות מבוססות על הנתונים שאומנו</p>
+        <p class="section-desc">שאל שאלות ותקבל תשובות מבוססות על הקבצים הפעילים</p>
       </div>
 
       <div class="chat-container">
@@ -163,19 +199,19 @@
         </div>
 
         <div class="chat-input-container">
-          <input 
-            id="chatInput" 
-            type="text" 
-            class="chat-input" 
-            placeholder="שאל כל דבר מהקבצים המצורפים..." 
+          <input
+            id="chatInput"
+            type="text"
+            class="chat-input"
+            placeholder="שאל כל דבר מהקבצים המצורפים..."
           />
-          <button id="chatSend" class="btn btn-send">
+          <button id="chatSend" class="btn btn-send" title="שלח">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <line x1="22" y1="2" x2="11" y2="13"/>
               <polygon points="22 2 15 22 11 13 2 9 22 2"/>
             </svg>
           </button>
-          <button id="chatClear" class="btn btn-clear">
+          <button id="chatClear" class="btn btn-clear" title="נקה">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <polyline points="3 6 5 6 21 6"/>
               <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>

@@ -93,15 +93,30 @@ function maeOriginalScale(net, data, labelFit) {
 
 function samplePredictions(net, data, labelFit, n = 5) {
   const out = [];
+
   for (let i = 0; i < Math.min(n, data.length); i++) {
     const item = data[i];
+
     const pred = net.run(item.input);
     const yHat = denormLabel(Number(pred.y), labelFit);
     const y = denormLabel(Number(item.output.y), labelFit);
-    out.push({ actual: y, predicted: yHat });
+
+    const error = Math.abs(y - yHat);
+    const errorPercent = y !== 0
+      ? (error / Math.abs(y)) * 100
+      : 0;
+
+    out.push({
+      actual: y,
+      predicted: yHat,
+      error,
+      errorPercent
+    });
   }
+
   return out;
 }
+
 
 async function trainCsvNN({
   csvPath,
