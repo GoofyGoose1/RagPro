@@ -76,7 +76,7 @@ window.addEventListener("DOMContentLoaded", async () => {
     try {
       setTxtStatus("מעלה…");
       const data = await postForm("/api/upload-text-kb", f);
-      setTxtStatus("TXT הוגדר כ-KB פעיל ✅");
+      setTxtStatus("TXT הוגדר כ-KB פעיל ");
       await refreshState();
     } catch (e) {
       setTxtStatus(e.message || String(e), false);
@@ -121,7 +121,7 @@ window.addEventListener("DOMContentLoaded", async () => {
       el("csvPreview").innerHTML = renderTable(headers.slice(0, 10), previewRows);
 
       el("btnTrainCsv").disabled = false;
-      setCsvStatus("בדיקה הצליחה ✅ עכשיו בחר labelKey ולחץ 'אמן CSV'");
+      setCsvStatus("בדיקה הצליחה עכשיו בחר labelKey ולחץ 'אמן CSV'");
     } catch (e) {
       setCsvStatus(e.message || String(e), false);
     }
@@ -137,7 +137,7 @@ window.addEventListener("DOMContentLoaded", async () => {
     try {
       setCsvStatus("מאמן CSV… (זה יכול לקחת קצת)");
       const data = await postForm("/api/train-csv", lastCsvFile, { labelKey });
-      setCsvStatus(`אימון הסתיים ✅ labelKey=${labelKey}`);
+      setCsvStatus(`אימון הסתיים labelKey=${labelKey}`);
       await refreshState();
     } catch (e) {
       setCsvStatus(e.message || String(e), false);

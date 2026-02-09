@@ -144,7 +144,7 @@ function formatCsvMatch(row, headers) {
 /* --------------------- MAIN --------------------- */
 function chatAnswer({ message, history = [], txtPath, csvPath }) {
   const msg = normalize(message);
-  if (!msg) return { answer: "כתוב הודעה 🙂", sources: [] };
+  if (!msg) return { answer: "כתוב הודעה", sources: [] };
 
   const fullMode = wantsFullSources(msg);
   const sources = [];
@@ -258,7 +258,7 @@ function chatAnswer({ message, history = [], txtPath, csvPath }) {
   if (qaAnswer && (textMatches.length || csvMatches.length)) extras.push("יש גם התאמות בקבצים");
 
   if (extras.length) {
-    parts.push(`\nℹ️ ${extras.join(" | ")}. כתוב "הצג מקורות" כדי לראות הכל.`);
+    parts.push(`\n ${extras.join(" | ")}. כתוב "הצג מקורות" כדי לראות הכל.`);
   }
 
   return { answer: parts.join("\n"), sources };

@@ -146,7 +146,7 @@ app.post("/api/upload-text-kb", upload.any(), (req, res) => {
 
     res.json({
       ok: true,
-      result: { message: "TXT saved as active knowledge base ✅" },
+      result: { message: "TXT saved as active knowledge base" },
       activeTxtPath: savedPath,
     });
   } catch (e) {
